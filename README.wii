@@ -1,0 +1,11 @@
+Notes for Wii builds:
+
+- `in-kernel-ramfs.config`, used to generate `initrd-src`.
+- `installer.config`, used to generate `installer-src`.
+- `loader-bin-config`, used to generate `loader-img-src`.
+
+These will be cleaned up eventually, but for now, they are as they are.
+These are truly awful, and I wish mercy on your soul if you actually try to bootstrap your own system with these.
+Good luck.
+
+- Techflash
