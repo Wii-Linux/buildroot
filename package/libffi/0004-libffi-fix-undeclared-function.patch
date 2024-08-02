@@ -1,0 +1,7 @@
+--- a/src/tramp.c	Wed Oct  4 16:38:04 2023
++++ b/src/tramp.c	Wed Oct  4 16:40:40 2023
+@@ -255,2 +255,4 @@
+
++int open_temp_exec_file (void);
++
+ static int
