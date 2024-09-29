@@ -1,5 +1,6 @@
 Notes for Wii builds:
 
+- `sdk.config`, run `make sdk` with this and move it into "sdk/wii-linux.tar.gz"
 - `in-kernel-ramfs.config`, used to generate `initrd-src`.
 - `installer.config`, used to generate `installer-src`.
 - `loader-bin-config`, used to generate `loader-img-src`.
