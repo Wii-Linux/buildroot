@@ -1,0 +1,29 @@
+Patch out the checks for fs type and /init existing.
+They won't pass, and we don't care.  Do the recursive delete anyways.
+--- a/util-linux/switch_root.c	2024-10-20 15:52:03.086814323 -0700
++++ b/util-linux/switch_root.c	2024-10-21 20:59:53.125846578 -0700
+@@ -238,6 +238,15 @@
+ 	// Additional sanity checks: we're about to rm -rf /, so be REALLY SURE
+ 	// we mean it. I could make this a CONFIG option, but I would get email
+ 	// from all the people who WILL destroy their filesystems.
++	
++	// Wii-Linux notes:
++	// We comment these checks out for 2 reason:
++	//
++	// A) rootfs is always overlayfs between tmpfs and RO squashfs.
++	//    we're perfectly fine nuking it, no matter what.
++	//
++	// B) /init may not exist (e.g. loader-img), but we don't care anyways.
++	/*
+ 	if (stat("/init", &st) != 0 || !S_ISREG(st.st_mode)) {
+ 		bb_error_msg_and_die("'%s' is not a regular file", "/init");
+ 	}
+@@ -246,7 +255,7 @@
+ 	 && (unsigned)stfs.f_type != TMPFS_MAGIC
+ 	) {
+ 		bb_simple_error_msg_and_die("root filesystem is not ramfs/tmpfs");
+-	}
++	}*/
+ 
+ 	if (!dry_run) {
+ 		// Zap everything out of rootdev
