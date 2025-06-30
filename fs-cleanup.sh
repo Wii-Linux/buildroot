@@ -18,3 +18,6 @@ rm "$1/lib32"
 
 echo "nuking unnecessary files"
 rm "$1/usr/lib/os-release"
+
+echo "Fixing broken magic.mgc"
+cp magic.mgc "$1/usr/share/misc/magic.mgc"
