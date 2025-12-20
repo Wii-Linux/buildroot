@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PHP_VERSION = 8.3.22
+PHP_VERSION = 8.4.16
 PHP_SITE = https://www.php.net/distributions
 PHP_SOURCE = php-$(PHP_VERSION).tar.xz
 PHP_INSTALL_STAGING = YES
@@ -14,6 +14,9 @@ PHP_DEPENDENCIES = host-pkgconf pcre2
 PHP_LICENSE = PHP-3.01
 PHP_LICENSE_FILES = LICENSE
 PHP_CPE_ID_VENDOR = php
+
+# Only affects the Windows operating system
+PHP_IGNORE_CVES += CVE-2024-3566
 
 PHP_CONF_OPTS = \
 	--mandir=/usr/share/man \
@@ -38,6 +41,10 @@ endif
 
 ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 PHP_EXTRA_LIBS += -latomic
+endif
+
+ifeq ($(BR2_TOOLCHAIN_USES_UCLIBC),y)
+PHP_CONF_ENV += php_cv_func_copy_file_range=no
 endif
 
 ifeq ($(BR2_PACKAGE_LIBUCONTEXT),y)
@@ -256,10 +263,10 @@ PHP_POST_CONFIGURE_HOOKS += PHP_DISABLE_VALGRIND
 
 ifeq ($(BR2_PACKAGE_PCRE2_JIT),y)
 PHP_CONF_OPTS += --with-pcre-jit=yes
-PHP_CONF_ENV += ac_cv_have_pcre2_jit=yes
+PHP_CONF_ENV += php_cv_have_pcre2_jit=yes
 else
 PHP_CONF_OPTS += --with-pcre-jit=no
-PHP_CONF_ENV += ac_cv_have_pcre2_jit=no
+PHP_CONF_ENV += php_cv_have_pcre2_jit=no
 endif
 
 ifeq ($(BR2_PACKAGE_PHP_EXT_CURL),y)

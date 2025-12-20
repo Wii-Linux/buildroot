@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-EDK2_VERSION = edk2-stable202505
+EDK2_VERSION = edk2-stable202508
 EDK2_SITE = https://github.com/tianocore/edk2
 EDK2_SITE_METHOD = git
 EDK2_LICENSE = BSD-2-Clause-Patent
@@ -121,6 +121,12 @@ else ifeq ($(BR2_TARGET_EDK2_PLATFORM_OVMF_RISCV),y)
 EDK2_ARCH = RISCV64
 EDK2_PACKAGE_NAME = OvmfPkg/RiscVVirt
 EDK2_PLATFORM_NAME = RiscVVirtQemu
+EDK2_BUILD_DIR = $(EDK2_PLATFORM_NAME)
+
+else ifeq ($(BR2_TARGET_EDK2_PLATFORM_OVMF_LOONGARCH64),y)
+EDK2_ARCH = LOONGARCH64
+EDK2_PACKAGE_NAME = OvmfPkg/LoongArchVirt
+EDK2_PLATFORM_NAME = LoongArchVirtQemu
 EDK2_BUILD_DIR = $(EDK2_PLATFORM_NAME)
 
 endif
